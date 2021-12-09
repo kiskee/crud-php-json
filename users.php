@@ -2,15 +2,21 @@
 
 
 function getUsers(){
-   $users = json_decode(file_get_contents(__DIR__ . '/users.json'), true);
-   echo '<pre>';
-   var_dump($users);
-   echo '<pre>'; 
-   exit;
+   return json_decode(file_get_contents(__DIR__ . '/users.json'), true);
+  
 
 }
 
 function getUsersById($id){
+
+    $users = getUsers();
+    foreach ($users as $user){
+        if($user['id']==$id){
+            return $user;
+        }
+        
+    }
+    return null;
 
 }
 
