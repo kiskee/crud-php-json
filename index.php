@@ -1,41 +1,94 @@
 <?php 
-require 'users.php';
+session_start();
 
-$users = getUsers();
+require __DIR__.'/users/users.php';
 
-include 'partials/header.php';
-?>
-
-<table class="table table-hover table-dark">
-    <thead class="table-info">
-        <tr>
-            <th>Name</th>
-            <th>UserName</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Website</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php foreach($users as $user ):?>
-        <tr>
-            <td><?php echo $user['name'] ?></td>
-            <td><?php echo $user['username'] ?></td>
-            <td><?php echo $user['email'] ?></td>
-            <td><?php echo $user['phone'] ?></td>
-            <td><?php echo $user['website'] ?></td>
-            <td>
-                <a href="view.php?id=<?php echo $user['id'] ?>" class="btn btn-sm btn-success">View</a>
-                <a href="update.php?id=<?php echo $user['id'] ?>" class="btn btn-sm btn-info">Update</a>
-                <a href="delete.php?id=<?php echo $user['id'] ?>" class="btn btn-sm btn-danger">Delete</a>
-            </td>
-        </tr>
-        <?php endforeach;  ?>
-    </tbody>
+if(is_authenticated()){
+    redirect('all.php');
+    die();
+}
 
 
+/*if(!isset($_GET['id'])){
+    include "partials/not_found.php";
+    exit;
+}*/
 
-</table>
+//$userId = $_GET['id'];
+//$userId = filter_input(INPUT_GET,'id',FILTER_VALIDATE_INT);
+
+//$user = getUsersById($userId);
+
+/*if(!$user){
+    include "partials/not_found.php";
+    exit;
+};*/
+
+//if(isset($_POST['login'])){
+   // print_r($_POST);
+//};
+
+if($_SERVER['REQUEST_METHOD']== 'POST'){
+   // print_r ($_POST);
+   $email = filter_input(INPUT_POST,'email',FILTER_VALIDATE_EMAIL);
+   $password = $_POST['password'];
+
+//compare with data store
+
+if(aunthenticate_user($email,$password)){
+    $_SESSION['email'] = $email;
+    redirect('all.php');
     
+}else{
+    $status = 'the privided credentials didnt not work';
+    echo '<script language="javascript">alert("PLEASE REGISTER");</script>';
+}
+
+
+   if($email==false){
+       $status = 'Please enter a valid email adress';
+   };
+  // print_r($_POST);
+}
+include 'partials/header.php';
+
+/*<div class="row">
+        <?php echo $user['name' ]?>
+    </div>*/
+?>
+<div class="container card text-white bg-warning"  style="width: 400px">
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <h1>Login</h1>
+
+        </div>
+    </div>
+    
+    <div class="row justify-content-center">
+    <form action="" method="POST">
+        <div class="form-group">
+            <label for="email">Email: </label>
+            <input type="text" name="email" id="email"  class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="password">Password: </label>
+            <input type="password" name="password" id="password"  class="form-control" />
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Login" name="login">
+        </div>
+
+    </form>
+    </div>
+    <div class="row">
+    
+        <?php  
+        if(isset($status)){
+            echo $status;
+        }
+        ?>
+        
+    </div>
+</div>
+
 <?php include 'partials/footer.php';?>

@@ -1,17 +1,35 @@
 <?php
-
-require __DIR__.'/users.php';
+session_start();
+include 'partials/header.php';
+require __DIR__.'/users/users.php';
+ensure_user_is_authenticated();
+if(!isset($_GET['id'])){
+    include "partials/not_found.php";
+    exit;
+}
 
 $userId = $_GET['id'];
 
 $user = getUsersById($userId);
-/*
-echo'<pre>';
-var_dump($user);
-echo'<pre>';
-*/
-include 'partials/header.php';
+
+if(!$user){
+    include "partials/not_found.php";
+    exit;
+}
+
+
 ?>
+
+<div class="container">
+<div class="card">
+    <div class="card-header text-center">
+        <h3>View User: <?php echo $user['name']?></h3>
+    </div>
+
+    <div class="card-body text-center">
+        <a  class="btn btn-secondary"  href="update.php?id=<?php echo $user['id'] ?>">Update</a>
+        <a class="btn btn-danger"  href="delete.php?id=<?php echo $user['id'] ?>">Delete</a>
+    </div>
 
 <table class="table table-hover table-success">
     <tbody>
@@ -33,10 +51,16 @@ include 'partials/header.php';
         </tr>
         <tr>
             <th>Website:</th>
-            <td><?php echo $user['website']?></td>
+            <td>
+            <a target="_blank" href="http://<?php echo $user['website'] ?>">
+                    <?php echo $user['website'] ?>
+                    </a>
+            </td>
         </tr>
     </tbody>
 </table>
+</div>
+</div>
 
 
 <?php include 'partials/footer.php';?>
