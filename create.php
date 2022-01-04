@@ -11,24 +11,11 @@ $user=[
     'phone' => '',
     'website' => '',
     'password' => '',
-    
+
 
 ];
 
-if($_SERVER['REQUEST_METHOD'] == 'POST'){
-$user = createUser($_POST);
 
-uploadImage($_FILES['picture'], $user); 
-
-
-   
-
-
-// echo '<pre>';
-//var_dump();
-// echo '</pre>';
-redirect('all.php');
-}
 
 
 

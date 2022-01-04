@@ -41,7 +41,7 @@ if(aunthenticate_user($email,$password)){
     
 }else{
     $status = 'the privided credentials didnt not work';
-    echo '<script language="javascript">alert("PLEASE REGISTER");</script>';
+    //echo '<script language="javascript">alert("the privided credentials didnt not work");</script>';
 }
 
 

@@ -128,6 +128,13 @@ function putJson($users){
 
 }
 
+function validatePass($password){
+    if(preg_match('/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z])(?=.*[*-.]).{6,}$/g',$password)){
+        
+        return true;   
+    }
+}
+
 
 
 

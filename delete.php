@@ -17,9 +17,9 @@ deleteUser($userId);
 //    exit;
 //}
 
-session_unset();
-session_destroy();
-redirect('index.php');
+//session_unset();
+//session_destroy();
+redirect('all.php');
 
 
 

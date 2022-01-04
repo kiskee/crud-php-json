@@ -18,14 +18,22 @@
                 <div class="form-group">
                     <label>Name</label>
                     <input name="name" value="<?php echo $user['name'] ?>" class="form-control" >
+                    <span class="error">* <?php echo $nameErr;?></span>
+                    <div class="row">
+    
+                   
+                    
+                </div>
                 </div>
                 <div class="form-group">
                     <label>Username</label>
                     <input name="username" value="<?php echo $user['username'] ?>" class="form-control" >
+                    
                 </div>
                 <div class="form-group">
                     <label>Email</label>
                     <input name="email" value="<?php echo $user['email'] ?>" class="form-control" >
+                    <span class="error">* <?php echo $emailErr;?></span>
                 </div>
                 <div class="form-group">
                     <label>Phone</label>
@@ -34,10 +42,17 @@
                 <div class="form-group">
                     <label>Website</label>
                     <input name="website" value="<?php echo $user['website'] ?>" class="form-control" >
+                    <span class="error"><?php echo $websiteErr;?></span>
                 </div>
                 <div class="form-group">
                     <label>Password</label>
                     <input name="password" value="<?php echo $user['password'] ?>" class="form-control" >
+                    
+                    <?php  
+                    if(isset($errorPass)){
+                        echo $errorPass;
+                    }
+                    ?>
                 </div>
                 <div class="form-group">
                     <label>Image</label>
@@ -51,3 +66,7 @@
 </div>
     </div>
 </div>
+
+
+
+
